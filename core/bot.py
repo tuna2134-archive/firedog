@@ -33,4 +33,4 @@ class FireDog(commands.Bot):
         print(self.user.name)
 
     async def is_owner(self, user: discord.User) -> bool:
-        return user.id in [739702692393517076]
+        return user.id in [739702692393517076] or await super().is_owner(user)
