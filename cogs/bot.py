@@ -21,8 +21,12 @@ class Bot(commands.Cog):
     @app_commands.command(description="このbotについて。")
     async def info(self, interaction: discord.Interaction) -> None:
         embed = discord.Embed(title="Info")
-        embed.add_field(name="サーバー導入数", value=len(self.bot.guilds))
-        embed.add_field(name="認識できるユーザー数", value=len(self.bot.users))
+        embed.add_field(name="サーバー導入数", value=f"{len(self.bot.guilds)}サーバー")
+        embed.add_field(name="認識できるユーザー数", value=f"{len(self.bot.users)}ユーザー")
+        embed.add_field(
+            name="WebSocket",
+            value=f"{round(self.bot.latency * 1000, 2)}ms"
+        )
         await interaction.response.send_message(embed=embed)
 
 
