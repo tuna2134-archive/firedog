@@ -18,6 +18,10 @@ class Bot(commands.Cog):
             value=f"{round(self.bot.latency * 1000, 2)}ms"
         ))
 
+    @app_commands.command(description="このbotについて。")
+    async def info(self, interaction: discord.Interaction) -> None:
+        await interaction.response.send_message("作成中...")
+
 
 async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(Bot(bot))
