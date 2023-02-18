@@ -164,6 +164,29 @@ class Auth(commands.Cog):
                     color=discord.Color.green()
                 ))
 
+    @auth.command(description="認証の情報を表示します。")
+    async def info(self, interaction: discord.Interaction) -> None:
+        async with self.pool.acquire() as connection:
+            async with connection.cursor() as cursor:
+                await cursor.execute(
+                    "SELECT * FROM Auth WHERE GuildId = %s", (interaction.guild.id,))
+                rows = await cursor.fetchone()
+                if rows is None:
+                    await interaction.response.send_message(embed=discord.Embed(
+                        title="認証情報",
+                        description="有効にしていません",
+                        color=discord.Color.red()
+                    ))
+                else:
+                    icon = getattr(interaction.guild, "icon", None)
+                    icon_url = icon.url if icon is not None else None
+                    embed = discord.Embed(title="認証情報", color=discord.Color.green())
+                    embed.set_author(
+                        name=interaction.guild.name, icon_url=icon_url)
+                    embed.add_field(name="認証のタイプ", value=rows[2])
+                    await interaction.response.send_message(embed=embed)
+
+
 
 async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(Auth(bot))
