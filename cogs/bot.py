@@ -22,7 +22,7 @@ class Bot(commands.Cog):
     async def info(self, interaction: discord.Interaction) -> None:
         embed = discord.Embed(
             title="Info",
-            descrption="このボットで荒らし対策ができる！をモットに作っています。",
+            description="このボットで荒らし対策ができる！をモットに作っています。",
             color=discord.Color.blue()
         )
         embed.add_field(name="サーバー導入数", value=f"{len(self.bot.guilds)}サーバー")
