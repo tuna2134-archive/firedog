@@ -3,6 +3,8 @@ from discord.ext import commands
 from discord import app_commands
 import discord
 
+from time import time
+
 
 class Bot(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -11,12 +13,19 @@ class Bot(commands.Cog):
 
     @app_commands.command(description="botの速度を返します。")
     async def ping(self, interaction: discord.Interaction) -> None:
-        await interaction.response.send_message(embed=discord.Embed(
-            title="Pong!"
-        ).add_field(
+        embed = discord.Embed(title="Pong!")
+        embed.add_field(
             name="WebSocket",
-            value=f"{round(self.bot.latency * 1000, 2)}ms"
-        ))
+            value=f"{round(self.bot.latency * 1000, 2)ms"
+        )
+        embed.add_field(name="Http", value="測定中...")
+        before = time()
+        await interaction.response.send_message(embed=embed)
+        embed.set_field_at(
+            1, name="Http",
+            value=f"{round((time() - before) * 1000, 2)}ms"
+        )
+        await interaction.edit_original_response(embed=embed)
 
     @app_commands.command(description="このbotについて。")
     async def info(self, interaction: discord.Interaction) -> None:
