@@ -31,6 +31,11 @@ class FireDog(commands.Bot):
 
     async def on_ready(self) -> None:
         print(self.user.name)
+        await self.change_presence(
+            status=discord.Status.online, activity=discord.Activity(
+                name="絶賛稼働中", type=discord.ActivityType.watching
+            )
+        )
 
     async def is_owner(self, user: discord.User) -> bool:
         return user.id in [739702692393517076] or await super().is_owner(user)

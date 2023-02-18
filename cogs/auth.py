@@ -113,7 +113,7 @@ class ButtonView(discord.ui.View):
         async with interaction.client.pool.acquire() as connection:
             async with connection.cursor() as cursor:
                 await cursor.execute(
-                    "SELECT RoleId FROM Auth WHERE GuildId = %s AND Mode = button;",
+                    'SELECT RoleId FROM Auth WHERE GuildId = %s AND Mode = "button";',
                     (interaction.guild.id,)
                 )
                 rows = await cursor.fetchone()
@@ -130,7 +130,7 @@ class ButtonView(discord.ui.View):
                         title="ボタン認証",
                         description="認証成功し、ロール付与しました。",
                         color=discord.Color.green()
-                    )
+                    ), ephemeral=True)
 
 
 class Auth(commands.Cog):
@@ -144,13 +144,19 @@ class Auth(commands.Cog):
         self.bot = bot
         self.pool = bot.pool
         self.image_view = ImageView()
+        self.button_view = ButtonView()
         bot.add_view(self.image_view)
+        bot.add_view(self.button_view)
 
     async def cog_load(self) -> None:
         async with self.pool.acquire() as connection:
             async with connection.cursor() as cursor:
                 await cursor.execute(
-                    "CREATE TABLE IF NOT EXISTS Auth (GuildId BIGINT, RoleId BIGINT, Mode TEXT);"
+                    """CREATE TABLE IF NOT EXISTS Auth (
+                        GuildId BIGINT NOT NULL PRIMARY KEY,
+                        RoleId BIGINT,
+                        Mode TEXT
+                    );"""
                 )
     
     @auth.command(description="画像認証")
@@ -183,6 +189,26 @@ class Auth(commands.Cog):
                         description="設定しました。",
                         color=discord.Color.green()
                     ), ephemeral=True)
+
+    @auth.command(description="ボタン認証")
+    @app_commands.checks.has_permissions(manage_roles=True)
+    @app_commands.describe(role="認証に成功したユーザーに付与するロール")
+    async def button(self, interaction: discord.Interaction, role: discord.Role) -> None:
+        async with self.pool.acquire() as connection:
+            async with connection.cursor() as cursor:
+                await cursor.execute(
+                    'INSERT INTO Auth VALUES (%s, %s, "button");',
+                    (interaction.guild.id, role.id)
+                )
+                await interaction.response.send_message(embed=discord.Embed(
+                    title="ボタン認証",
+                    description="設定しました。",
+                    color=discord.Color.green()
+                ), ephemeral=True)
+                await interaction.channel.send(embed=discord.Embed(
+                    title="ボタン認証",
+                    description="認証するには下のボタンを押してください。"
+                ), view=self.button_view)
 
     @auth.command(description="認証をオフにします。")
     async def off(self, interaction: discord.Interaction) -> None:

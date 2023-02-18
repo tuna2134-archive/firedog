@@ -10,7 +10,12 @@ from os import getenv
 load_dotenv()
 bot = FireDog(
     intents=discord.Intents.all(),
-    command_prefix="fd!"
+    command_prefix="fd!",
+    activity=discord.Activity(
+        name="起動中｜Booting...",
+        type=discord.ActivityType.watching
+    ),
+    status=discord.Status.idle
 )
 
 
