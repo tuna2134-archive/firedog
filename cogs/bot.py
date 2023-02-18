@@ -20,7 +20,10 @@ class Bot(commands.Cog):
 
     @app_commands.command(description="このbotについて。")
     async def info(self, interaction: discord.Interaction) -> None:
-        await interaction.response.send_message("作成中...")
+        embed = discord.Embed(title="Info")
+        embed.add_field(name="サーバー導入数", value=len(self.bot.guilds))
+        embed.add_field(name="認識できるユーザー数", value=len(self.bot.users))
+        await interaction.response.send_message(embed=embed)
 
 
 async def setup(bot: commands.Bot) -> None:
