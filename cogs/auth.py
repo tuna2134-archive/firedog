@@ -101,6 +101,38 @@ class ImageView(discord.ui.View):
         )
 
 
+class ButtonView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(
+        label="認証する", style=discord.ButtonStyle.green,
+        custom_id="auth_button"
+    )
+    async def auth(self, interaction: discord.Interaction, _button: discord.ui.Button) -> None:
+        async with interaction.client.pool.acquire() as connection:
+            async with connection.cursor() as cursor:
+                await cursor.execute(
+                    "SELECT RoleId FROM Auth WHERE GuildId = %s AND Mode = button;",
+                    (interaction.guild.id,)
+                )
+                rows = await cursor.fetchone()
+                if rows is None:
+                    await interaction.response.send_message(embed=discord.Embed(
+                        title="ボタン認証",
+                        description="何らかの問題で付与することができません",
+                        color=discord.Color.red()
+                    ))
+                else:
+                    role = interaction.guild.get_role(rows[0])
+                    await interaction.user.add_roles(role)
+                    await interaction.response.send_message(embed=discord.Embed(
+                        title="ボタン認証",
+                        description="認証成功し、ロール付与しました。",
+                        color=discord.Color.green()
+                    )
+
+
 class Auth(commands.Cog):
     auth = app_commands.Group(
         name="auth",
