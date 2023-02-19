@@ -5,7 +5,7 @@ from discord.app_commands import (
     CommandOnCooldown
 )
 import discord
-from traceback import TracebackException
+from traceback import format_exception
 
 
 class ErrorView(discord.ui.View):
@@ -18,10 +18,10 @@ class ErrorView(discord.ui.View):
     async def describe(
         self, interaction: discord.Interaction, style: discord.ButtonStyle
     ):
-        content = TracebackException.from_exception(self.error)
+        content = "".join(error for error in format_exception(self.error))
         await interaction.response.send_message(embed=discord.Embed(
             title="例外エラー2",
-            description=f"```py\n{str(content)}\n```0",
+            description=f"```py\n{str(content)}\n```",
             color=discord.Color.red()
         ))
 
