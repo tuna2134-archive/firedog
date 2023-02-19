@@ -11,6 +11,7 @@ class Moderation(commands.Cog):
 
     @app_commands.command(description="メッセージをまとめて消します。")
     @app_commands.checks.has_permissions(manage_messages=True)
+    @app_commands.checks.cooldown(2, 30)
     @app_commands.describe(count="消したいメッセージ数")
     async def purge(self, interaction: discord.Interaction, count: int) -> None:
         await interaction.response.defer(ephemeral=True)
