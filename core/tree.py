@@ -5,7 +5,10 @@ from discord.app_commands import (
     CommandOnCooldown
 )
 import discord
+
 from traceback import format_exception
+
+from pymysql.err import IntegrityError
 
 
 class ErrorView(discord.ui.View):
