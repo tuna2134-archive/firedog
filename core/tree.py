@@ -19,7 +19,7 @@ class ErrorView(discord.ui.View):
         self, interaction: discord.Interaction, style: discord.ButtonStyle
     ):
         content = "".join(error for error in format_exception(self.error))
-        await interaction.response.send_message(embed=discord.Embed(
+        await interaction.response.edit_message(embed=discord.Embed(
             title="例外エラー2",
             description=f"```py\n{str(content)}\n```",
             color=discord.Color.red()
@@ -41,6 +41,6 @@ class FiredogTree(CommandTree):
         else:
             await interaction.response.send_message(embed=discord.Embed(
                 title="例外エラー",
-                description=f"```\n{error}\n```",
+                description=f"```py\n{error}\n```",
                 color=discord.Color.red()
             ), view=ErrorView(error))
