@@ -46,7 +46,8 @@ class FiredogTree(CommandTree):
             if isinstance(error.original, Cursor.IntegrityError):
                 await interaction.response.send_message(embed=discord.Embed(
                     title="データベースエラー",
-                    description="すでに存在しているか、なんらかの間違いで保存できません。"
+                    description="すでに存在しているか、なんらかの間違いで保存できません。",
+                    color=discord.Color.red()
                 ), view=ErrorView(error))
         else:
             await interaction.response.send_message(embed=discord.Embed(
