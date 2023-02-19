@@ -1,4 +1,5 @@
 from core.bot import FireDog
+from core.tree import FiredogTree
 
 import discord
 
@@ -21,7 +22,8 @@ bot = FireDog(
         name="起動中｜Booting...",
         type=discord.ActivityType.watching
     ),
-    status=discord.Status.idle
+    status=discord.Status.idle,
+    tree_cls=FiredogTree
 )
 
 
