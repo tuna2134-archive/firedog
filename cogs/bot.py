@@ -61,7 +61,16 @@ class Bot(commands.Cog):
         )
         embed.add_field(
             name="discord.py",
-            value=f"v{discord.__version__}")
+            value=f"v{discord.__version__}"
+        )
+        embed.add_field(
+            name="開発者",
+            value="[tuna2134](https://github.com/tuna2134)"
+        )
+        embed.add_field(
+            name="GitHub repo",
+            value="https://github.com/tuna2134/firedog"
+        )
         await interaction.response.send_message(embed=embed)
 
 
