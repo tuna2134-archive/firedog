@@ -8,7 +8,7 @@ import discord
 
 from traceback import format_exception
 
-from aiomysql import IntegrityError
+from aiomysql import Cursor
 
 
 class ErrorView(discord.ui.View):
@@ -41,7 +41,7 @@ class FiredogTree(CommandTree):
                 "秒後にお試しください。",
                 color=discord.Color.red()
             ), ephemeral=True)
-        elif isinstance(error, IntegrityError):
+        elif isinstance(error, Cursor.IntegrityError):
             await interaction.response.send_message(embed=discord.Embed(
                 title="データベースエラー",
                 description="すでに存在しているか、なんらかの間違いで保存できません。"
