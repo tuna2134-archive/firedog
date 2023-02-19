@@ -2,6 +2,7 @@
 from discord.app_commands import (
     CommandTree,
     AppCommandError,
+    CommandInvokeError,
     CommandOnCooldown
 )
 import discord
@@ -41,11 +42,12 @@ class FiredogTree(CommandTree):
                 "秒後にお試しください。",
                 color=discord.Color.red()
             ), ephemeral=True)
-        elif isinstance(error, Cursor.IntegrityError):
-            await interaction.response.send_message(embed=discord.Embed(
-                title="データベースエラー",
-                description="すでに存在しているか、なんらかの間違いで保存できません。"
-            ), view=ErrorView(error))
+        elif isinstance(error, CommandInvokeError):
+            if isinstance(error.original, Cursor.IntegrityError):
+                await interaction.response.send_message(embed=discord.Embed(
+                    title="データベースエラー",
+                    description="すでに存在しているか、なんらかの間違いで保存できません。"
+                ), view=ErrorView(error))
         else:
             await interaction.response.send_message(embed=discord.Embed(
                 title="例外エラー",
