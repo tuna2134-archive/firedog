@@ -10,6 +10,7 @@ class Bot(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.pool = bot.pool
+        self.change_presence.start()
 
     @tasks.loop(minutes=2.0)
     async def change_presence(self) -> None:
@@ -20,9 +21,9 @@ class Bot(commands.Cog):
             )
         )
 
-    @commands.Cog.listener()
-    async def on_ready(self) -> None:
-        self.change_presence.start()
+    @change_presence.before_loop
+    async def wait_ready(self) -> None:
+        await self.bot.wait_until_ready()
 
     def cog_unload(self) -> None:
         self.change_presence.cancel()
