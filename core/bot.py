@@ -26,8 +26,8 @@ class FireDog(commands.Bot):
         )
 
         # Loading cogs
-        await self.load_extension("cogs.auth")
-        await self.load_extension("cogs.bot")
+        for cog_name in ["auth", "bot", "mod"]:
+            await self.load_extension(f"cogs.{cog_name}")
 
     async def on_ready(self) -> None:
         print(self.user.name)

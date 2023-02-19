@@ -15,7 +15,8 @@ class FiredogTree(CommandTree):
         if isinstance(error, CommandOnCooldown):
             await interaction.response.send_message(embed=discord.Embed(
                 title="クールダウンエラー",
-                description=f"負荷防止のため、{error.retry_after}秒後にお試しください。",
+                description=f"負荷防止のため、{round(error.retry_after, 2)}"
+                "秒後にお試しください。",
                 color=discord.Color.red()
             ))
         else:
