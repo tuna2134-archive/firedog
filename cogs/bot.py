@@ -56,11 +56,11 @@ class Bot(commands.Cog):
         embed.add_field(name="認識できるユーザー数", value=f"{len(self.bot.users)}ユーザー")
         py_info = sys.version_info
         embed.add_field(
-            name="Pythonバージョン",
+            name="Python",
             value=f"v{py_info.major}.{py_info.minor}.{py_info.micro}"
         )
         embed.add_field(
-            name="discord.pyのバージョン",
+            name="discord.py",
             value=f"v{discord.__version__}")
         await interaction.response.send_message(embed=embed)
 
