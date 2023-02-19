@@ -9,7 +9,7 @@ class Moderation(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         super().__init__()
 
-    @app_commands.command(description="purge")
+    @app_commands.command(description="メッセージをまとめて消します。")
     @app_commands.checks.has_permissions(manage_messages=True)
     @app_commands.describe(count="消したいメッセージ数")
     async def purge(self, interaction: discord.Interaction, count: int) -> None:
