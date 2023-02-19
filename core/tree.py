@@ -14,7 +14,7 @@ class ErrorView(discord.ui.View):
         super().__init__(timeout=180)
         self.error = error
 
-    @discord.ui.button(label="詳細", emoji="<:arrow_down:>")
+    @discord.ui.button(label="詳細", emoji="⬇️")
     async def describe(
         self, interaction: discord.Interaction, style: discord.ButtonStyle
     ):
