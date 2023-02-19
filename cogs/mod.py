@@ -13,8 +13,9 @@ class Moderation(commands.Cog):
     @app_commands.checks.has_permissions(manage_messages=True)
     @app_commands.describe(count="消したいメッセージ数")
     async def purge(self, interaction: discord.Interaction, count: int) -> None:
+        await interaction.response.defer(ephemeral=True)
         await interaction.channel.purge(limit=count)
-        await interaction.response.send_message(embed=discord.Embed(
+        await interaction.followup.send(embed=discord.Embed(
             title="消しました",
             color=discord.Color.blue()
         ), ephemeral=True)
