@@ -48,7 +48,7 @@ class Bot(commands.Cog):
     @app_commands.command(description="このbotについて。")
     async def info(self, interaction: discord.Interaction) -> None:
         embed = discord.Embed(
-            title="Info",
+            title="このボットの情報",
             description="このボットで荒らし対策ができる！をモットに作っています。",
             color=discord.Color.blue()
         )
