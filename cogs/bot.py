@@ -68,8 +68,8 @@ class Bot(commands.Cog):
             value="[tuna2134](https://github.com/tuna2134)"
         )
         embed.add_field(
-            name="GitHub repo",
-            value="https://github.com/tuna2134/firedog"
+            name="GitHub",
+            value="[tuna2134/firedog](https://github.com/tuna2134/firedog)"
         )
         await interaction.response.send_message(embed=embed)
 
