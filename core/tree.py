@@ -8,7 +8,7 @@ import discord
 
 from traceback import format_exception
 
-from pymysql.err import IntegrityError
+from aiomysql import IntegrityError
 
 
 class ErrorView(discord.ui.View):
