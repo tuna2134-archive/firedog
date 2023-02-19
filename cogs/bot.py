@@ -16,7 +16,8 @@ class Bot(commands.Cog):
         embed = discord.Embed(title="Pong!")
         embed.add_field(
             name="WebSocket",
-            value=f"{round(self.bot.latency * 1000, 2)}ms"
+            value=f"{round(self.bot.latency * 1000, 2)}ms",
+            color=discord.Color.blue()
         )
         embed.add_field(name="Http", value="測定中...")
         before = time()
