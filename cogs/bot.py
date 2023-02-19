@@ -4,6 +4,7 @@ from discord import app_commands
 import discord
 
 from time import time
+import sys
 
 
 class Bot(commands.Cog):
@@ -53,10 +54,14 @@ class Bot(commands.Cog):
         )
         embed.add_field(name="サーバー導入数", value=f"{len(self.bot.guilds)}サーバー")
         embed.add_field(name="認識できるユーザー数", value=f"{len(self.bot.users)}ユーザー")
+        py_info = sys.version_info
         embed.add_field(
-            name="WebSocket",
-            value=f"{round(self.bot.latency * 1000, 2)}ms"
+            name="Pythonバージョン",
+            value=f"v{py_info.major}.{py_info.minor}.{py_info.micro}"
         )
+        embed.add_field(
+            name="discord.pyのバージョン",
+            value=f"v{discord.__version__}")
         await interaction.response.send_message(embed=embed)
 
 
