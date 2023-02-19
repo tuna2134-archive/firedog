@@ -1,5 +1,5 @@
 # Cog - bot
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 import discord
 
@@ -10,6 +10,22 @@ class Bot(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.pool = bot.pool
+
+    @tasks.sleep(minutes=2.0)
+    async def change_presence(self) -> None:
+        await self.bot.change_presence(
+            status=discord.Status.online, activity=discord.Activity(
+                name=f"{len(self.bot.guilds)}サーバー",
+                type=discord.ActivityType.watching
+            )
+        )
+
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        self.change_presence.start()
+
+    def cog_unload(self) -> None:
+        self.change_presence.cancel()
 
     @app_commands.command(description="botの速度を返します。")
     async def ping(self, interaction: discord.Interaction) -> None:
