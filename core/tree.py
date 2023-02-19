@@ -43,4 +43,4 @@ class FiredogTree(CommandTree):
                 title="例外エラー",
                 description=error,
                 color=discord.Color.red()
-            ))
+            ), view=ErrorView(error))
