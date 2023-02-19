@@ -41,6 +41,6 @@ class FiredogTree(CommandTree):
         else:
             await interaction.response.send_message(embed=discord.Embed(
                 title="例外エラー",
-                description=error,
+                description=f"```\n{error}\n```",
                 color=discord.Color.red()
             ), view=ErrorView(error))
