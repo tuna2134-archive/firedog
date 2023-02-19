@@ -16,7 +16,7 @@ class Bot(commands.Cog):
     async def change_presence(self) -> None:
         await self.bot.change_presence(
             status=discord.Status.online, activity=discord.Activity(
-                name=f"{len(self.bot.guilds)}サーバー｜len(self.bot.users)ユーザー",
+                name=f"{len(self.bot.guilds)}サーバー｜{len(self.bot.users)}ユーザー",
                 type=discord.ActivityType.watching
             )
         )
