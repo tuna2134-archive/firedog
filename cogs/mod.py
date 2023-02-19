@@ -17,7 +17,7 @@ class Moderation(commands.Cog):
         await interaction.channel.purge(limit=count)
         await interaction.followup.send(embed=discord.Embed(
             title="Purge",
-            description=f"{count}件消しました。"
+            description=f"{count}件消しました。",
             color=discord.Color.green()
         ), ephemeral=True)
 
