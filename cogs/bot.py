@@ -13,11 +13,10 @@ class Bot(commands.Cog):
 
     @app_commands.command(description="botの速度を返します。")
     async def ping(self, interaction: discord.Interaction) -> None:
-        embed = discord.Embed(title="Pong!")
+        embed = discord.Embed(title="Pong!", color=discord.Color.blue())
         embed.add_field(
             name="WebSocket",
-            value=f"{round(self.bot.latency * 1000, 2)}ms",
-            color=discord.Color.blue()
+            value=f"{round(self.bot.latency * 1000, 2)}ms"
         )
         embed.add_field(name="Http", value="測定中...")
         before = time()
