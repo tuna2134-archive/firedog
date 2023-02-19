@@ -3,6 +3,12 @@ from core.bot import FireDog
 import discord
 
 from dotenv import load_dotenv
+try:
+    import uvloop # ignore
+except Exception:
+    pass
+else:
+    uvloop.install()
 
 from os import getenv
 
