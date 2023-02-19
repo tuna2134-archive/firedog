@@ -17,7 +17,7 @@ class Bot(commands.Cog):
     async def change_presence(self) -> None:
         await self.bot.change_presence(
             status=discord.Status.online, activity=discord.Activity(
-                name=f"{len(self.bot.guilds)}サーバー｜{len(self.bot.users)}ユーザー",
+                name=f"{len(self.bot.guilds)}サーバー｜{len(self.bot.users)}人",
                 type=discord.ActivityType.watching
             )
         )
@@ -53,7 +53,7 @@ class Bot(commands.Cog):
             color=discord.Color.blue()
         )
         embed.add_field(name="サーバー導入数", value=f"{len(self.bot.guilds)}サーバー")
-        embed.add_field(name="認識できるユーザー数", value=f"{len(self.bot.users)}ユーザー")
+        embed.add_field(name="認識できるユーザー数", value=f"{len(self.bot.users)}人")
         py_info = sys.version_info
         embed.add_field(
             name="Python",
