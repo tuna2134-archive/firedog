@@ -1,6 +1,6 @@
 # Cog - bot
 from discord.ext import commands, tasks
-from discord import app_commands
+from discord import app_commands, permissions
 import discord
 
 from time import time
@@ -12,6 +12,12 @@ class Bot(commands.Cog):
         self.bot = bot
         self.pool = bot.pool
         self.change_presence.start()
+        per = discord.Permissions.none()
+        per.manage_roles()
+        per.manage_messages()
+        self.invite_url = discord.utils.oauth_url(
+            bot.user.id, permissions=per
+        )
 
     @tasks.loop(minutes=2.0)
     async def change_presence(self) -> None:
@@ -72,6 +78,14 @@ class Bot(commands.Cog):
             value="[tuna2134/firedog](https://github.com/tuna2134/firedog)"
         )
         await interaction.response.send_message(embed=embed)
+
+
+    @app_commands.command(description="ボットの招待リンクを表示します。")
+    async def invite(self, interaction: discord.Interaction) -> None:
+        await interaction.response.send_message(embed=discord.Embed(
+            title="導入ありがとうございます！",
+            description=f"導入リンクは[こちら]({self.invite_url})です。"
+        ))
 
 
 async def setup(bot: commands.Bot) -> None:
