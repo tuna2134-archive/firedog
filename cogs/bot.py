@@ -13,8 +13,8 @@ class Bot(commands.Cog):
         self.pool = bot.pool
         self.change_presence.start()
         per = discord.Permissions.none()
-        per.manage_roles()
-        per.manage_messages()
+        per.manage_roles = True
+        per.manage_messages = True
         self.invite_url = discord.utils.oauth_url(
             bot.user.id, permissions=per
         )
