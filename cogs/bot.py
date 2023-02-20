@@ -84,8 +84,9 @@ class Bot(commands.Cog):
     async def invite(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message(embed=discord.Embed(
             title="導入ありがとうございます！",
-            description=f"導入リンクは[こちら]({self.invite_url})です。"
-        ))
+            description=f"導入リンクは[こちら]({self.invite_url})です。",
+            color=discord.Color.blue()
+        ), ephemeral=True)
 
 
 async def setup(bot: commands.Bot) -> None:
