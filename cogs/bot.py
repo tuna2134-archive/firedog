@@ -83,7 +83,7 @@ class Bot(commands.Cog):
     @app_commands.command(description="ボットの招待リンクを表示します。")
     async def invite(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message(embed=discord.Embed(
-            title="導入ありがとうございます！",
+            title="導入検討ありがとうございます！",
             description=f"導入リンクは[こちら]({self.invite_url})です。",
             color=discord.Color.blue()
         ), ephemeral=True)
