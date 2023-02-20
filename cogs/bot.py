@@ -86,7 +86,7 @@ class Bot(commands.Cog):
         await interaction.response.send_message(embed=discord.Embed(
             title="導入検討ありがとうございます！",
             description=f"導入リンクは[こちら]({self.invite_url})です。",
-            color=discord.Color.blue()
+            color=discord.Color.random()
         ), ephemeral=True)
 
 
