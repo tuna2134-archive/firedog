@@ -22,6 +22,12 @@ class Moderation(commands.Cog):
             color=discord.Color.green()
         ), ephemeral=True)
 
+    @app_commands.command(description="ロールパネル作成します。")
+    @app_commands.checks.has_permissions(manage_roles=True)
+    @app_commands.describe(title="タイトル名")
+    async def role(self, interaction: discord.Interaction, title: str) -> None:
+        await interaction.response.send_message("作成中...")
+
 
 async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(Moderation(bot))
