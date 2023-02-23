@@ -10,7 +10,7 @@ class RoleSettingSelect(discord.ui.Select):
 
     def __init__(self, roles: List[discord.Role]):
         options = [discord.SelectOption(
-            label=role.id, value=role.mention
+            label=role.mention, value=role.id
         ) for role in roles]
         super().__init__(
             placeholder="ロールを選択してください",
@@ -19,6 +19,10 @@ class RoleSettingSelect(discord.ui.Select):
         )
 
     async def callback(self, interaction: discord.Interaction) -> None:
+        roles = [
+            interaction.guild.get_role(int(role_id))
+            for role_id in self.values
+        ]
         await interaction.edit_original_response(
             embed=discord.Embed(
                 title="役職パネル",
