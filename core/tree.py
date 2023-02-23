@@ -35,7 +35,7 @@ class FiredogTree(CommandTree):
     async def on_error(
         self, interaction: discord.Interaction, error: AppCommandError
     ) -> None:
-        super().on_error(interaction, error)
+        await super().on_error(interaction, error)
         if isinstance(error, CommandOnCooldown):
             await interaction.response.send_message(embed=discord.Embed(
                 title="クールダウンエラー",
