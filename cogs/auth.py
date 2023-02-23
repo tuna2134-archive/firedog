@@ -122,7 +122,7 @@ class ButtonView(discord.ui.View):
                         title="ボタン認証",
                         description="何らかの問題で付与することができません",
                         color=discord.Color.red()
-                    ))
+                    ), ephemeral=True)
                 else:
                     role = interaction.guild.get_role(rows[0])
                     await interaction.user.add_roles(role)
