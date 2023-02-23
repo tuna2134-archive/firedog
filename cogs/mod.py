@@ -42,7 +42,7 @@ class RoleSettingSelect(discord.ui.Select):
         super().__init__(
             placeholder="ロールを選択してください",
             min_values=1, max_values=len(roles),
-            options=options
+            options=options, custom_id="role_setting_panel"
         )
 
     async def callback(self, interaction: discord.Interaction) -> None:
