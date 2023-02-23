@@ -54,7 +54,8 @@ class RoleSettingSelect(discord.ui.Select):
             embed=discord.Embed(
                 title="役職パネル",
                 description="\n".join(role.mention for role in roles)
-            )
+            ),
+            view=RoleView(roles)
         )
 
 
