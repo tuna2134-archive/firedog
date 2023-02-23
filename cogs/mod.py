@@ -23,7 +23,7 @@ class RoleSettingSelect(discord.ui.Select):
             interaction.guild.get_role(int(role_id))
             for role_id in self.values
         ]
-        await interaction.edit_original_response(
+        await interaction.message.edit(
             embed=discord.Embed(
                 title="役職パネル",
                 description="\n".join(role.mention for role in roles)
