@@ -1,7 +1,35 @@
 # Cog - mod.py
 from discord.ext import commands
-from discord import app_commands
+from discord import Role, app_commands
 import discord
+
+from typing import List
+
+
+class RoleSettingSelect(discord.ui.Select):
+
+    def __init__(self, roles: List[discord.Role]):
+        options = [discord.SelectOption(
+            label=role.id, value=role.mention
+        ) for role in roles]
+        super().__init__(
+            placeholder="ロールを選択してください",
+            min_values=1, max_values=len(roles)
+        )
+
+    async def callback(self, interaction: discord.Interaction) -> None:
+        await interaction.edit_original_response(
+            embed=discord.Embed(
+                title="役職パネル",
+                description="\n".join(role.mention for role in roles)
+            )
+        )
+
+
+class RoleSettingView(discord.ui.View):
+    
+    def __init__(self, roles: List[discord.Role]):
+        self.add_item(RoleSettingSelect(roles))
 
 
 class Moderation(commands.Cog):
@@ -26,7 +54,10 @@ class Moderation(commands.Cog):
     @app_commands.checks.has_permissions(manage_roles=True)
     @app_commands.describe(title="タイトル名")
     async def role(self, interaction: discord.Interaction, title: str) -> None:
-        await interaction.response.send_message("作成中...")
+        await interaction.response.send_message(
+            embed=discord.Embed(title="ロール選択してください"),
+            view=RoleSettingView(interaction.guild.roles)
+        )
 
 
 async def setup(bot: commands.Bot) -> None:
