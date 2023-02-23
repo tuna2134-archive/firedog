@@ -17,7 +17,7 @@ class RoleSelect(discord.ui.Select):
             options=options, custom_id="role_panel"
         )
 
-    async def callback(self, interaction: discord.Interaction) -> Any:
+    async def callback(self, interaction: discord.Interaction) -> None:
         await interaction.response.defer(ephemeral=True)
         for role_id in self.values:
             await interaction.user.add_roles(
