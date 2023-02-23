@@ -30,6 +30,7 @@ class RoleSettingView(discord.ui.View):
     
     def __init__(self, roles: List[discord.Role]):
         self.add_item(RoleSettingSelect(roles))
+        super().__init__()
 
 
 class Moderation(commands.Cog):
