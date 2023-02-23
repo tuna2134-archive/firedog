@@ -14,7 +14,8 @@ class RoleSettingSelect(discord.ui.Select):
         ) for role in roles]
         super().__init__(
             placeholder="ロールを選択してください",
-            min_values=1, max_values=len(roles) - 1
+            min_values=1, max_values=len(roles),
+            options=options
         )
 
     async def callback(self, interaction: discord.Interaction) -> None:
