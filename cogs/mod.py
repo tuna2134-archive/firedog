@@ -54,7 +54,8 @@ class Moderation(commands.Cog):
     @app_commands.checks.has_permissions(manage_roles=True)
     @app_commands.describe(title="タイトル名")
     async def role(self, interaction: discord.Interaction, title: str) -> None:
-        await interaction.response.send_message(
+        await interaction.response.defer()
+        await interaction.followup.send(
             embed=discord.Embed(title="ロール選択してください"),
             view=RoleSettingView(interaction.guild.roles)
         )
