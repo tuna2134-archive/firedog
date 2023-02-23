@@ -20,6 +20,7 @@ class RoleSelect(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction) -> None:
         await interaction.response.defer(ephemeral=True)
         for role_id in self.values:
+            print(role_id)
             await interaction.user.add_roles(
                 interaction.guild.get_role(role_id)
             )
