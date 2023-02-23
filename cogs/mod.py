@@ -6,11 +6,38 @@ import discord
 from typing import List
 
 
+class RoleSelect(discord.ui.Select):
+    
+    def __init__(self, roles: List[discord.Role]):
+        options = [discord.SelectOption(
+            label=role.name, value=role.id
+        ) for role in roles]
+        super().__init__(
+            min_values=1, max_values=len(roles),
+            options=options, custom_id="role_panel"
+        )
+
+    async def callback(self, interaction: Interaction) -> Any:
+        await interaction.response.defer(ephemeral=True)
+        for role_id in self.values:
+            await interaction.user.add_roles(
+                interaction.guild.get_role(role_id)
+            )
+        await interaction.followup.send("付与しました。", ephemeral=True)
+
+
+class RoleView(discord.ui.View):
+    
+    def __init__(self, roles: List[discord.Role]):
+        super().__init__(timeout=None)
+        self.add_item(RoleSelect(roles))
+
+
 class RoleSettingSelect(discord.ui.Select):
 
     def __init__(self, roles: List[discord.Role]):
         options = [discord.SelectOption(
-            label=role.mention, value=role.id
+            label=role.name, value=role.id
         ) for role in roles]
         super().__init__(
             placeholder="ロールを選択してください",
