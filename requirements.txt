@@ -1,4 +1,4 @@
-discord.py
+discord.py[speed, voice]
 aiomysql
 captcha
 python-dotenv
