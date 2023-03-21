@@ -25,12 +25,15 @@ class MessageType(TypedDict):
 
 
 class ChatgptView(discord.ui.View):
-    def __init__(self, messages: list[MessageType]):
+    def __init__(self, messages: list[MessageType], author_id):
         super().__init__()
         self.messages = messages
+        self.author_id = author_id
 
     @discord.ui.button(label="返信")
     async def reply(self, interaction: discord.Interaction, button: discord.ui.Button) -> None:
+        if interaction.user.id != self.author.id:
+            return await interaction.response.send_message("うーん、君私の主人じゃないでしょ！")
         if len(self.messages) > 5:
             return await interaction.response.send_message("すいません、制限がかかっているためお答えすることができません")
         await interaction.response.send_modal(ChatgptModal(self.messages))
@@ -45,7 +48,6 @@ class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
         self.messages = messages
 
     async def on_submit(self, interaction: discord.Interaction):
-        print(self.content.value)
         await interaction.response.defer()
         self.messages.append({
             "role": "user",
@@ -91,7 +93,7 @@ class Chatgpt(commands.Cog):
         })
         await interaction.followup.send(
             embed=make_embed(message),
-            view=ChatgptView(messages)
+            view=ChatgptView(messages, interaction.user.id)
         )
 
 
