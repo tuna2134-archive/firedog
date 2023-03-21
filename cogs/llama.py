@@ -19,9 +19,8 @@ def make_embed(message: str):
 async def talk(promps: str) -> str:
     promps += "\nassistant: "
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            "https://llama-api.tuna2134.jp/", params={"promps": promps}) as res:
-            print(await res.read())
+        async with session.post(
+            "https://llama-api.tuna2134.jp/", json={"promps": promps}) as res:
             return (await res.json())["content"]
 
 
