@@ -30,7 +30,7 @@ class ChatgptView(discord.ui.View):
         self.messages = messages
 
     @discord.ui.button(label="返信")
-    async def reply(self, interaction: discord.Interaction) -> None:
+    async def reply(self, interaction: discord.Interaction, button: discord.ui.Button) -> None:
         await interaction.response.send_modal(ChatgptModal(self.messages))
 
 class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
