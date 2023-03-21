@@ -43,6 +43,7 @@ class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
         self.messages = messages
 
     async def on_submit(self, interaction: discord.Interaction):
+        print(content.value)
         await interaction.response.defer()
         self.messages.append({
             "role": "user",
