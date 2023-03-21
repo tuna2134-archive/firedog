@@ -4,3 +4,4 @@ captcha
 python-dotenv
 jishaku
 uvloop; sys_platform != 'win32'
+openai
