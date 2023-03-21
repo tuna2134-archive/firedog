@@ -43,6 +43,7 @@ class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
         self.messages = messages
 
     async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.defer()
         self.messages.append({
             "role": "user",
             "content": content.value
@@ -56,7 +57,7 @@ class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
             "role": "assistant",
             "content": message
         })
-        await interaction.response.send_message(
+        await interaction.followup.send(
             embed=make_embed(message),
             view=ChatgptView(self.messages)
         )
@@ -69,6 +70,7 @@ class Chatgpt(commands.Cog):
     @app_commands.command(description="chatgptと話します")
     @app_commands.describe(content="メッセージ内容")
     async def chatgpt(self, interaction: discord.Interaction, content: str) -> None:
+        await interaction.response.defer()
         messages = [
             {
                 "role": "user",
@@ -84,7 +86,7 @@ class Chatgpt(commands.Cog):
             "role": "assistant",
             "content": message
         })
-        await interaction.response.send_message(
+        await interaction.followup.send(
             embed=make_embed(message),
             view=ChatgptView(messages)
         )
