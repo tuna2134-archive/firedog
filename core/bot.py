@@ -39,3 +39,7 @@ class FireDog(commands.Bot):
 
     async def is_owner(self, user: discord.User) -> bool:
         return user.id in [739702692393517076, 884692310166761504] or await super().is_owner(user)
+
+    async def close(self) -> None:
+        self.pool.close()
+        await super().close()
