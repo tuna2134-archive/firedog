@@ -31,6 +31,8 @@ class ChatgptView(discord.ui.View):
 
     @discord.ui.button(label="返信")
     async def reply(self, interaction: discord.Interaction, button: discord.ui.Button) -> None:
+        if len(self.messages) > 5:
+            return await interaction.response.send_message("すいません、制限がかかっているためお答えすることができません")
         await interaction.response.send_modal(ChatgptModal(self.messages))
 
 class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
