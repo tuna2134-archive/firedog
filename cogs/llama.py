@@ -15,7 +15,7 @@ def make_embed(message: str):
         description=message
     )
 
-def make_promps(messages: list[MessageType]]) -> str:
+def make_promps(messages: list[MessageType]) -> str:
     return "\n".join(f"{msg['role']}: {msg['content']}", for msg in messages)
 
 
