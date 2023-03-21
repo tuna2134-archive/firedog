@@ -42,7 +42,7 @@ class LlamaView(discord.ui.View):
 
     @discord.ui.button(label="返信")
     async def reply(self, interaction: discord.Interaction, button: discord.ui.Button) -> None:
-        if interaction.user.id != self.author.id:
+        if interaction.user.id != self.author_id:
             return await interaction.response.send_message("うーん、君私の主人じゃないでしょ！")
         if len(self.messages) > 5:
             return await interaction.response.send_message("すいません、制限がかかっているためお答えすることができません")
