@@ -99,4 +99,4 @@ class Llama(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(Chatgpt(bot))
+    await bot.add_cog(Llama(bot))
