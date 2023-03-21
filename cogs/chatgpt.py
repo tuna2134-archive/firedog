@@ -43,11 +43,11 @@ class ChatgptModal(discord.ui.Modal, title="メッセージの内容"):
         self.messages = messages
 
     async def on_submit(self, interaction: discord.Interaction):
-        print(content.value)
+        print(self.content.value)
         await interaction.response.defer()
         self.messages.append({
             "role": "user",
-            "content": content.value
+            "content": self.content.value
         })
         response = await openai.ChatCompletion.acreate(
             model="gpt-3.5-turbo",
