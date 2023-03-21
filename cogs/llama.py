@@ -16,7 +16,7 @@ def make_embed(message: str):
     )
 
 def make_promps(messages: list[MessageType]) -> str:
-    return "\n".join(f"{msg['role']}: {msg['content']}", for msg in messages)
+    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
 
 
 async def talk(promps: str) -> str:
