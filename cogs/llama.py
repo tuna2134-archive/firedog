@@ -15,9 +15,6 @@ def make_embed(message: str):
         description=message
     )
 
-def make_promps(messages: list[MessageType]) -> str:
-    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
-
 
 async def talk(promps: str) -> str:
     promps += "\nassistant: "
@@ -25,6 +22,9 @@ async def talk(promps: str) -> str:
         async with session.get(
             "https://llama-api.tuna2134.jp/", params={"promps": promps}) as res:
             return await res.json()["content"]
+
+def make_promps(messages: list[MessageType]) -> str:
+    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
 
 
 class MessageType(TypedDict):
