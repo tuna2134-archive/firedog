@@ -21,7 +21,7 @@ async def talk(promps: str) -> str:
     async with aiohttp.ClientSession() as session:
         async with session.get(
             "https://llama-api.tuna2134.jp/", params={"promps": promps}) as res:
-            return await res.json()["content"]
+            return (await res.json())["content"]
 
 
 class MessageType(TypedDict):
