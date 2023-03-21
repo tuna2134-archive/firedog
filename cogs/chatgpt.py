@@ -88,3 +88,7 @@ class Chatgpt(commands.Cog):
             embed=make_embed(message),
             view=ChatgptView(messages)
         )
+
+
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(Chatgpt(bot))
