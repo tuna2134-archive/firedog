@@ -17,7 +17,7 @@ def make_embed(message: str):
 
 
 async def talk(promps: str) -> str:
-    promps += "\nassistant: "
+    promps += " assistant: "
     async with aiohttp.ClientSession() as session:
         async with session.post(
             "https://llama-api.tuna2134.jp/", json={"promps": promps}) as res:
@@ -30,7 +30,7 @@ class MessageType(TypedDict):
 
 
 def make_promps(messages: list[MessageType]) -> str:
-    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
+    return " ".join(f"{msg['role']}: {msg['content']}" for msg in messages)
 
 
 class LlamaView(discord.ui.View):
