@@ -23,13 +23,14 @@ async def talk(promps: str) -> str:
             "https://llama-api.tuna2134.jp/", params={"promps": promps}) as res:
             return await res.json()["content"]
 
-def make_promps(messages: list[MessageType]) -> str:
-    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
-
 
 class MessageType(TypedDict):
     role: str
     content: str
+
+
+def make_promps(messages: list[MessageType]) -> str:
+    return "\n".join(f"{msg['role']}: {msg['content']}" for msg in messages)
 
 
 class LlamaView(discord.ui.View):
